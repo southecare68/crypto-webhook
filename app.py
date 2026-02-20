@@ -17,15 +17,22 @@ def health():
 async def webhook(req: Request):
     data = await req.json()
 
-    requests.post(
-        "https://api.pushover.net/1/messages.json",
-        data={
-            "token": PUSHOVER_TOKEN,
-            "user": PUSHOVER_USER,
-            "title": "Test Alert",
-            "message": str(data)
-        },
-        timeout=10,
-    )
+    payload = {
+        "token": PUSHOVER_TOKEN,
+        "user": PUSHOVER_USER,
+        "title": "TV Alert",
+        "message": str(data)[:900],
+    }
+
+    try:
+        resp = requests.post(
+            "https://api.pushover.net/1/messages.json",
+            data=payload,
+            timeout=10,
+        )
+        print("Pushover status:", resp.status_code)
+        print("Pushover body:", resp.text[:300])
+    except Exception as e:
+        print("Pushover exception:", repr(e))
 
     return {"status": "ok"}
