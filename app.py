@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Request
 import requests
 import os
+import time
+print("BOOT:", time.time())
 
 app = FastAPI()
 
