@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
-DB_PATH = "trades.db"
+DB_PATH = "/var/data/trades.db"
 START_EQUITY = 5000
 RISK_PER_TRADE = float(os.getenv("RISK_PER_TRADE", "200"))
 
